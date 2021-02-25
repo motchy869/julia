@@ -759,7 +759,7 @@ JL_DLLEXPORT jl_methtable_t *jl_method_table_for(jl_value_t *argtypes JL_PROPAGA
 
 JL_DLLEXPORT jl_methtable_t *jl_method_get_table(jl_method_t *method JL_PROPAGATES_ROOT) JL_NOTSAFEPOINT
 {
-    return method->external_mt ? method->external_mt : jl_method_table_for(method->sig);
+    return method->external_mt ? (jl_methtable_t*)method->external_mt : jl_method_table_for(method->sig);
 }
 
 // get the MethodTable implied by a single given type, or `nothing`
