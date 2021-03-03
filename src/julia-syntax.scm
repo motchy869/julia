@@ -221,11 +221,11 @@
 
 (define (method-expr-name m)
   (let ((name (cadr m)))
-    (let ((name (if (or (length= m 2) (not (pair? name)) (not (quoted? name))) name (cadr name))))
-      (cond ((not (pair? name)) name)
-            ((eq? (car name) 'outerref) (cadr name))
-            ;((eq? (car name) 'globalref) (caddr name))
-            (else name)))))
+     (let ((name (if (or (length= m 2) (not (pair? name)) (not (quoted? name))) name (cadr name))))
+       (cond ((not (pair? name)) name)
+             ((eq? (car name) 'outerref) (cadr name))
+             ;((eq? (car name) 'globalref) (caddr name))
+             (else name)))))
 
 ;; extract static parameter names from a (method ...) expression
 (define (method-expr-static-parameters m)
@@ -349,7 +349,7 @@
    (let* ((names (map car sparams))
           (anames (map (lambda (x) (if (underscore-symbol? x) UNUSED x)) (llist-vars argl)))
           (unused_anames (filter (lambda (x) (not (eq? x UNUSED))) anames))
-          (ename (if (nodot-sym-ref? name) `(quote ,name)
+          (ename (if (nodot-sym-ref? name) name
                     (if (overlay? name) (cadr name) `(null)))))
      (if (has-dups unused_anames)
          (error (string "function argument name not unique: \"" (car (has-dups unused_anames)) "\"")))
