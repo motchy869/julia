@@ -262,6 +262,7 @@ include("opaque_closure.jl")
 @overlay mt [function def]
 """
 macro overlay(mt, def)
+    def = macroexpand(__module__, def) # to expand @inline, @generated, etc
     if !isexpr(def, [:function, :(=)]) || !isexpr(def.args[1], :call)
         error("@overlay requires a function Expr")
     end
