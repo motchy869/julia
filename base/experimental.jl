@@ -279,7 +279,7 @@ end
 macro MethodTable(name)
     isa(name, Symbol) || error("name must be a symbol")
     esc(quote
-        const $name = ccall(:jl_new_method_table, Any, (Any, Any), $(quot(name)), $(@__MODULE__))
+        const $name = ccall(:jl_new_method_table, Any, (Any, Any), $(quot(name)), $(__module__))
     end)
 end
 
