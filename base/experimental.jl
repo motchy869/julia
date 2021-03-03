@@ -262,7 +262,7 @@ include("opaque_closure.jl")
 @overlay mt [function def]
 """
 macro overlay(mt, def)
-    if !isexpr(def, :function) || !isexpr(def.args[1], :call)
+    if !isexpr(def, [:function, :(=)]) || !isexpr(def.args[1], :call)
         error("@overlay requires a function Expr")
     end
     name = def.args[1].args[1]
